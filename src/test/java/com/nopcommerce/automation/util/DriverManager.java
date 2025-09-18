@@ -15,7 +15,7 @@ public class DriverManager {
 
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
-    public enum gitclsBrowserType {
+    public enum BrowserType {
         CHROME, FIREFOX, EDGE
     }
 
