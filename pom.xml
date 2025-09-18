@@ -1,0 +1,138 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Project Coordinates (unique identifiers for the project in Maven repo) -->
+    <groupId>com.nopcommerce.automation</groupId>   <!-- Company/organization domain -->
+    <artifactId>nopcommerce-framework</artifactId> <!-- Project/module name -->
+    <version>1.0.0-SNAPSHOT</version>              <!-- Version (SNAPSHOT = under development) -->
+
+    <!-- Metadata for project -->
+    <name>NopCommerce Automation Framework</name>
+    <description>Test automation framework for nopCommerce demo site using Selenium, TestNG, and Maven</description>
+
+    <!-- Centralized version properties (easy to update from one place) -->
+    <properties>
+        <selenium.version>4.24.0</selenium.version>
+        <testng.version>7.10.2</testng.version>
+        <webdrivermanager.version>5.9.2</webdrivermanager.version>
+        <allure.maven.version>2.11.2</allure.maven.version>
+        <extent.version>5.1.1</extent.version>
+        <slf4j.version>2.0.16</slf4j.version>
+        <jackson.version>2.18.0</jackson.version>
+        <poiji.version>3.1.3</poiji.version>
+        <surefire.version>3.2.5</surefire.version>
+        <threadCount>3</threadCount> <!-- Parallel execution threads for TestNG -->
+    </properties>
+
+    <!-- Dependencies: external libraries required for project -->
+    <dependencies>
+        <!-- Selenium WebDriver: browser automation -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+
+        <!-- TestNG: testing framework -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- WebDriverManager: auto-manages browser drivers -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+
+        <!-- Logging API (slf4j + simple backend) -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <!-- JSON handling (for config/test data) -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!-- Poiji: Excel to Java object mapping -->
+        <dependency>
+            <groupId>com.github.ozlerhakan</groupId>
+            <artifactId>poiji</artifactId>
+            <version>${poiji.version}</version>
+        </dependency>
+
+        <!-- Extent Reports: HTML report generation -->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>${extent.version}</version>
+        </dependency>
+
+
+        <!-- Allure TestNG Integration -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.21.0</version> <!-- Use latest stable version -->
+        </dependency>
+    </dependencies>
+
+
+
+    <!-- Build configuration (compilers, test runners, reporting plugins, etc.) -->
+    <build>
+        <plugins>
+            <!-- Compiler Plugin: compiles Java code with specific JDK version -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>17</source> <!-- Java source version -->
+                    <target>17</target> <!-- Java bytecode version -->
+                </configuration>
+            </plugin>
+
+            <!-- Surefire Plugin: runs TestNG/JUnit tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+                <configuration>
+                    <testFailureIgnore>false</testFailureIgnore> <!-- stop build if test fails -->
+                    <skipTests>false</skipTests>                 <!-- do not skip tests -->
+                    <parallel>methods</parallel>                 <!-- parallel execution at method level -->
+                    <threadCount>${threadCount}</threadCount>    <!-- number of parallel threads -->
+                    <forkCount>1</forkCount>                     <!-- number of JVM forks -->
+                    <systemPropertiesFile>src/main/resources/test-automation.properties</systemPropertiesFile>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>  <!-- entry TestNG suite -->
+                    </suiteXmlFiles>
+                </configuration>
+            </plugin>
+
+            <!-- Allure Plugin: integrates Allure reporting with Maven -->
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>${allure.maven.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
