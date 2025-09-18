@@ -3,6 +3,7 @@ package com.nopcommerce.automation.tests;
 import com.nopcommerce.automation.model.LoginTestDataModel;
 import com.nopcommerce.automation.pages.HomePage;
 import com.nopcommerce.automation.pages.LoginPage;
+import com.nopcommerce.automation.util.ConfigReader;
 import com.nopcommerce.automation.util.DriverManager;
 import com.nopcommerce.automation.util.FileUtil;
 import com.nopcommerce.automation.util.Site;
@@ -29,26 +30,18 @@ public class BaseTest {
 
     @BeforeMethod
     public void setUp() {
-        // Reload Excel data to ensure latest content
-        loginList = Poiji.fromExcel(dataFile, LoginTestDataModel.class, fileUtil.getPoijiOptions());
-
-        if (loginList == null || loginList.isEmpty()) {
-            throw new RuntimeException("Excel file is empty or not loaded properly!");
-        }
-
-        // Use Chrome by default
-        String browser = "chrome";
-
-        // Initialize driver and maximize window
+        // Initialize driver using config
+        String browser = ConfigReader.getBrowser();
         DriverManager.initDriver(browser);
         Site.maximizeWindow();
 
-        // Navigate to the first URL from Excel
+        // Navigate to first URL from Excel
         home.goToHomePage(loginList.get(0).url);
     }
 
     @AfterMethod
     public void tearDown() {
+
         DriverManager.quitDriver(); // Close the browser
     }
 }
