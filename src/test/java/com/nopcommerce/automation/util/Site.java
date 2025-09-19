@@ -2,7 +2,10 @@ package com.nopcommerce.automation.util;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -209,11 +212,7 @@ public class Site {
     }
 
     public static boolean getLoader(By locator) {
-        return new FluentWait<>(driver())
-                .withTimeout(Duration.ofMillis(2000))
-                .pollingEvery(Duration.ofMillis(100))
-                .ignoring(NoSuchElementException.class, TimeoutException.class)
-                .until(ExpectedConditions.invisibilityOfElementLocated(locator));
+        return new FluentWait<>(driver()).withTimeout(Duration.ofMillis(2000)).pollingEvery(Duration.ofMillis(100)).ignoring(NoSuchElementException.class, TimeoutException.class).until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
 
     // -------------------- Scroll Helpers --------------------

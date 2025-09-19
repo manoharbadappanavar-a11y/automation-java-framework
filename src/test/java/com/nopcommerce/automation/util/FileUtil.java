@@ -1,6 +1,7 @@
 package com.nopcommerce.automation.util;
 
 import java.io.File;
+
 import com.poiji.option.PoijiOptions;
 import com.poiji.option.PoijiOptions.PoijiOptionsBuilder;
 
@@ -14,7 +15,7 @@ public class FileUtil {
     public static FileUtil instance = null;
 
     // Reference to the Excel file with test data
-   public File dataFile;
+    public File dataFile;
 
     // Poiji configuration for reading Excel sheets
     public PoijiOptions options;
@@ -23,16 +24,12 @@ public class FileUtil {
     private FileUtil() {
         // Load the Excel file from resources folder
         // ClassLoader makes sure it works both in IDE and when packaged as JAR
-        dataFile = new File(getClass().getClassLoader()
-                .getResource("testNopCommerceData.xlsx").getFile());
+        dataFile = new File(getClass().getClassLoader().getResource("testNopCommerceData.xlsx").getFile());
 
         // Setup Poiji options
         // preferNullOverDefault: empty cells become null
         // ignoreWhitespaces: trims leading/trailing spaces in cells
-        options = PoijiOptionsBuilder.settings()
-                .preferNullOverDefault(true)
-                .ignoreWhitespaces(true)
-                .build();
+        options = PoijiOptionsBuilder.settings().preferNullOverDefault(true).ignoreWhitespaces(true).build();
     }
 
     // Returns the single instance of FileUtil
