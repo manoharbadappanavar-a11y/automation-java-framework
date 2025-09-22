@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Automation Suite" parallel="methods" thread-count="2">
+
+    <listeners>
+        <listener class-name="com.nopcommerce.automation.util.TestListener"/>
+    </listeners>
+
+    <test name="NopCommerce Tests">
+        <classes>
+            <class name="com.nopcommerce.automation.tests.LoginTest"/>
+            <class name="com.nopcommerce.automation.tests.SearchTest"/>
+        </classes>
+    </test>
+
+</suite>
