@@ -10,7 +10,7 @@ I enjoy building reliable automated tests for web applications and contributing 
 ---
 
 ### 🧰 Tech Skills  
-Java | Selenium WebDriver | TestNG | Data-Driven Testing  
+☕ Java | 🧪 Selenium WebDriver | 📋 TestNG | 📊 Data-Driven Testing  
 
 ---
 
