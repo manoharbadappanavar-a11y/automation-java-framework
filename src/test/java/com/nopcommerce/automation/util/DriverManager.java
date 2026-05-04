@@ -19,13 +19,10 @@ public class DriverManager {
         CHROME, FIREFOX, EDGE
     }
 
-    // Initialize driver for current thread
     public static void initDriver(String browserName) {
-        if (driver.get() != null) return; // already initialized
+        if (driver.get() != null) return;
 
         BrowserType browser;
-
-        // Normalize browser name
         String name = browserName.trim().toLowerCase();
 
         switch (name) {
@@ -50,24 +47,34 @@ public class DriverManager {
         }
 
         switch (browser) {
+
             case CHROME:
-                WebDriverManager.chromedriver().setup();
+                WebDriverManager.chromedriver()
+                        .clearDriverCache()
+                        .setup();
+
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--start-maximized", "--disable-notifications");
+                chromeOptions.addArguments("--start-maximized");
+                chromeOptions.addArguments("--disable-notifications");
+
                 driver.set(new ChromeDriver(chromeOptions));
                 break;
 
             case FIREFOX:
                 WebDriverManager.firefoxdriver().setup();
+
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.addArguments("--start-maximized");
+
                 driver.set(new FirefoxDriver(firefoxOptions));
                 break;
 
             case EDGE:
                 WebDriverManager.edgedriver().setup();
+
                 EdgeOptions edgeOptions = new EdgeOptions();
                 edgeOptions.addArguments("--start-maximized");
+
                 driver.set(new EdgeDriver(edgeOptions));
                 break;
         }
