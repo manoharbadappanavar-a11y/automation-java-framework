@@ -1,7 +1,7 @@
 name: Java Selenium CI
 
 on:
-  push:
+ push:
     branches: [ main, phase_1 ]
   pull_request:
     branches: [ main, phase_1 ]
@@ -13,24 +13,22 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: '17'
 
       - name: Build project
         run: mvn clean install
-        working-directory: automation-java-framework
 
       - name: Run TestNG tests
         run: mvn test
-        working-directory: automation-java-framework
 
       - name: Upload TestNG reports
         uses: actions/upload-artifact@v4
         with:
           name: test-report
-          path: automation-java-framework/target/surefire-reports/
+          path: target/surefire-reports/
