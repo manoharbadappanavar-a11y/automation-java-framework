@@ -30,7 +30,7 @@ jobs:
         working-directory: automation-java-framework
 
       - name: Upload TestNG reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-report
           path: automation-java-framework/target/surefire-reports/
